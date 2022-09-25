@@ -1,0 +1,29 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.slide-img{
+    z-index: 1;
+    animation: slide-in 0.5s forwards;
+    
+}
+
+.icons{
+    z-index: 2;
+    position: absolute; 
+    background-color: white;
+    cursor: pointer;
+}
+.right{
+    right: 0;
+}
+
+.slider-container{
+    display: flex;
+    align-items: center;
+}
+
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}

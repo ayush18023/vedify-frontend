@@ -1,0 +1,15 @@
+.checkoutitems{
+    width: 70%;
+    height: 100vh;
+    float: left;
+}
+.checkoutwindow{
+    width: 30%;
+    height: 100vh;
+}
+.paywindow{
+    background-color: hsl(30, 36%, 90%);
+    width: 28vw;
+    height: 70vh;
+    
+}

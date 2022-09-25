@@ -1,0 +1,51 @@
+.options{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    
+}
+.slid{
+    position:relative;
+    height: 750px;
+}
+.category-container>h1 {
+    text-align: center;
+
+}
+.category-container{
+    background-color: hsl(30, 36%, 95%);
+    position:relative;
+    bottom:30px;
+}
+.welcome-head{
+    font-size: 41px;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.welcome{
+    width: 450px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 17px;
+}
+
+.women-img{
+    width: 26vw; 
+    margin: 15px;
+
+}
+.shift_up{
+    bottom:100px
+}
+.contact{
+    width:80%;
+    margin: auto;
+}
+.contact>img{
+    
+    border: 1px solid transparent;
+    display: inline-block;
+    vertical-align: middle;
+}

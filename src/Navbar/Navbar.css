@@ -1,0 +1,223 @@
+
+.nav{
+    z-index: 3;  
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+.heading{
+    font-family: 'Lobster Two', cursive;
+    position: relative;
+    /* width: 100vw; */
+    left: 4rem;
+  /* transform: translateX(-50%); */
+}
+.nav_bullets:hover{
+    border-bottom: 2px solid #524000;
+    cursor: pointer;
+}
+.top-header{
+    /* background-color: hsl(30, 36%, 95%); */
+    background-color: transparent;
+    color: white;
+    display: flex;
+    width: 100%;
+    height: 80px;
+}
+
+.socials{
+    display: flex;
+    flex: 1;   
+    margin-top: 20px;
+    margin-left: 40px;
+}
+.imp{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+.login{
+    display: flex;
+    justify-content: center;
+}
+.logo{
+    margin-top: 15px;
+    flex: 1;
+    width:202px ;
+    height:40px;
+}
+.space-right{
+    margin-right: 2rem;
+}
+.space-left{
+    margin-left: 15px;
+}
+.wears{
+    display: flex;
+    align-items: center;
+    /* background-color: hsl(30, 36%, 95%); */
+    color: white;
+    background-color: transparent;
+    justify-content: center;
+}
+.wears>p{
+    margin: 10px;
+    font-size: 15px;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
+    z-index: 3;
+}
+.wears>p:hover{
+    border-bottom: 1px solid black;
+}
+.mouse-in-nav{
+    background-color: #f7f2ee;
+    color: #524000;
+    border-bottom: 1px solid black;
+    /* border-top: 2px solid silver; */
+}
+.gayab{
+    display: none;
+}
+
+
+.login_window{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    
+}
+.detailslogin{
+    background-color: hsl(0, 0%, 100%);
+    width: 500px;
+    height: 370px;
+    z-index: 5;
+    margin-left: calc(50vw - 250px);
+    animation: dropfromup 0.3s ease-in;
+    position: absolute;
+}
+.logininp{
+    border: 1px solid rgba(0, 0, 0, 0.80);
+    width: 80%;
+    margin-top: 50px;
+}
+.searchbar{
+    position: absolute;
+    top: 20vh;
+    left: 32vw;
+    z-index: 15;
+    /* background-color: red; */
+    background-color: transparent;
+}
+.loginbutt{
+    width: 80%;
+    height: 30px;
+    /* background-color: black; */
+    border: 1px solid black;
+    cursor: pointer;
+}
+.loginbutt:hover{
+    background-color: black;
+    color: white;
+}
+.registerinp{
+    border: 1px solid black;
+    width: 190px;
+    margin: 10px;
+    margin-top: 30px;
+}
+.rinp{
+    border: 1px solid rgba(0, 0, 0, 0.80);
+    width: 80%;
+    margin-top: 30px;
+}
+.detailsregister{
+    background-color: hsl(0, 0%, 100%);
+    width: 500px;
+    height: 470px;
+    z-index: 4;
+    animation: dropfromup 0.3s ease-in;
+    overflow: hidden;
+    
+    margin-left: calc(50vw - 250px);
+    position: absolute;
+}
+.alert{
+   
+    background-color: black;
+    top: 50px;
+    box-shadow: 0px 0px 8px 0px rgb(223, 255, 255);
+}
+.nav:hover{
+    animation: fade 0.5s ease-in;
+}
+#customBtn {
+    display: inline-block;
+    background: white;
+    color: #444;
+    width: 220px;
+    border-radius: 5px;
+    border: thin solid #888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
+    /* margin: 20px; */
+}
+#customBtn:hover {
+    cursor: pointer;
+    /* transform: translateX(2px); */
+    transform: translateY(-1px);
+}
+span.label {
+    font-family: serif;
+    font-weight: normal;
+}
+span.icon {
+    background: url('https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+}
+span.buttonText {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    /* Use the Roboto font that is loaded in the <head> */
+    font-family: 'Roboto', sans-serif;
+}
+.horizontal{
+    border-top: 2px solid black;
+    margin-top: 10px;
+}
+/* @keyframes fade {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 100%;
+    }
+}
+@keyframes fadeout {
+    0%{
+        opacity: 0%;
+    }
+    100%{
+        opacity: 100%;
+    }
+} */
+@keyframes dropfromup {
+    0%{
+        transform: translateY(-200px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}

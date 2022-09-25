@@ -1,0 +1,84 @@
+.cartbackdrop{
+    position: absolute;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.432);
+    z-index: 5;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+}
+.cart{
+    height: 100vh;
+    position: absolute;
+    top:0;
+    right: 0;
+    z-index: 6;
+    width: 600px;
+    position: fixed;
+    animation: slidein 0.2s ease-in forwards;
+    
+}
+@keyframes slidein {
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 600px;
+    }
+}
+@keyframes easeout {
+    0%{
+        width: 600px;
+    }
+    100%{
+        width: 0px;
+    }
+}
+.cartoff{
+    display: none;
+}
+.allcartitems{
+    height: 490px;
+    overflow-y: scroll;
+}
+.topofcart{
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+.totalwindow{
+    background-color: rgb(243, 243, 243);
+    border-top: 1px solid black;
+    /* border-left: 1px solid black; */
+}
+/***** Thumb Styles *****/
+/***** Firefox *****/
+/***** Focus Styles *****/
+/* Removes default focus */
+/* input[type="range"]:focus {
+    outline: none;
+} */
+  
+  /***** Chrome, Safari, Opera, and Edge Chromium *****/
+/*input[type="range"]::-webkit-slider-thumb {
+    border: 1px solid #053a5f;
+    outline: 3px solid #053a5f;
+    outline-offset: 0.125rem;
+    width: 50px;
+    height: 50px;
+}
+
+/******** Firefox ********/
+/*input[type="range"]::-moz-range-thumb {
+    border: 1px solid #053a5f;
+    outline: 3px solid #053a5f;
+    outline-offset: 0.125rem;     
+    width: 50px;
+    height: 50px;
+}
+.sliderinp{
+    width: 630px;
+    position: absolute;
+    top: 45vh;
+    right: 23vw;
+}*/

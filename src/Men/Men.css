@@ -1,0 +1,27 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.Sort_window{
+    width: 20%;
+    float: left;
+    min-height:100%;
+}
+.men-container{
+    margin-left: 25%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin-right: 50px;
+}
+.card{
+    margin-top: 50px;
+    text-transform:capitalize;
+    font-size: 13px;
+}
+/* .shopimg{
+    position:absolute;
+    top: 0;
+    width: 100%;
+    display: sticky;
+} */
