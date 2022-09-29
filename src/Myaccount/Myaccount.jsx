@@ -10,7 +10,7 @@ const Myaccount = () => {
     const userdetails=useSelector(state=>state.login.userdetails)
     const { orders }=useSelector(state=>state.cart)
     const [tab, settab] = useState(0)
-
+    const { isAdmin }=useSelector(state=>state.login)
     const tabitems=[
         {
             title:"My profile"
@@ -31,7 +31,7 @@ const Myaccount = () => {
             <div className='w-1/4 '>
                 <ul className='w-full float-left pl-10 mt-10 text-xl  font-medium'>
                     <li className='mt-4 cursor-pointer' onClick={()=>settab(0)}>My profile</li>
-                    <Link to='/Admin'><li className='mt-4 cursor-pointer' >Admin</li></Link>
+                    {isAdmin===1 && <Link to='/Admin'><li className='mt-4 cursor-pointer' >Admin</li></Link>}
                     <li className='mt-4 cursor-pointer' onClick={()=>settab(2)}>My Orders</li>
                     <li className='mt-4 cursor-pointer' onClick={()=>{window.location.href='/'}}>Logout</li>
                 </ul>
