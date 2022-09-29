@@ -14,12 +14,12 @@ import Cart from '../Cart/Cart';
 import MenuIcon from '@mui/icons-material/Menu';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import auth from './Finitiate'
-import { ToggleSearch } from '../Redux/Pages';
+import { getProducts, ToggleSearch, FilterProductsbyName } from '../Redux/Pages';
 import { useSelector,useDispatch } from 'react-redux/es/exports';
 import { CartOn } from '../Redux/Cart';
-import { LogIn,SetUser } from '../Redux/Login';
-import Womendrop from './Womendrop';
+import { LogIn,SetaccessToken,SetAdmin,SetUser } from '../Redux/Login';
 import WithGoogle from './WithGoogle';
+import {FirebaseExceptionHandler} from './Finitiate'
 
 const axios=require('axios')
 
@@ -41,18 +41,19 @@ export const Navbar = (props) => {
         secondary:"#4e6e19"
     }
     const [color, setcolor] = useState(colortheme.primary)
-    
     //reducer
     const cartstatus=useSelector(state=>state.cart.cartstatus)
     const islogged=useSelector(state=>state.login.islogged)
     const search=useSelector(state=>state.page.search)
-    const dispatch=useDispatch()
     const items=useSelector(state=>state.cart.items)
+    const { products,filteredProducts }=useSelector(state=>state.page)
+    const dispatch=useDispatch()
     
     const handlescroll=()=>{
         // console.log(document.body.style)
         const offset=window.scrollY;
         if(offset > 30 ){
+            active=1
             setnav('mouse-in-nav');
             setcolor(colortheme.secondary)
         }
@@ -65,10 +66,32 @@ export const Navbar = (props) => {
     const handlelogin=()=>{
         setlogin(1)
     }
+    
     const dologin=async ()=>{
+        try {
+            if(userlog.emailid==="admin@gmail.com"){
+                dispatch(SetAdmin())
+            }
+            const response=await signInWithEmailAndPassword(auth,userlog.emailid,userlog.password)
+            console.log("accesstoken:",response.user.accessToken)
+            const backendres=await axios.post('http://localhost:9000/api/v1/auth/whoami',{"authorization":`${response.user.accessToken}`}) 
+            console.log(backendres)
+            if(backendres.responseText="OK"){
+                dispatch(SetUser(backendres.data.data))
+                setlogin(0)
+                dispatch(LogIn())
+                dispatch(SetaccessToken(response.user.accessToken))
+                setalert(backendres.data.message)
+                closealert()
+            }
 
-        const response=await signInWithEmailAndPassword(auth,userlog.emailid,userlog.password)
-        console.log(response)
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const errormsg=FirebaseExceptionHandler(errorCode)
+            setalert(errormsg)
+            closealert()
+        }
     }
 
     const doregister=async ()=>{
@@ -78,10 +101,35 @@ export const Navbar = (props) => {
             closealert()
         }
         else{
-            const email=userreg.emailid;
-            const password=userreg.password
-            const response=await createUserWithEmailAndPassword(auth, email, password)
-            console.log(response)   
+            try {
+                const email=userreg.emailid;
+                const password=userreg.password
+                const response=await createUserWithEmailAndPassword(auth, email, password)
+                console.log(response)  
+                const data={
+                    name:userreg.name,
+                    email:email,
+                    phoneNo:response.user.phoneNumber,
+                    photo:response.user.photoURL
+                }
+                const backendres=await axios.post('http://localhost:9000/api/v1/auth/register',data,{ headers: {"authorization" : `${response.user.accessToken}`} }) 
+                console.log(backendres)
+                if(backendres.statusText==="OK"){
+                    dispatch(SetUser(backendres.data.data))
+                    setregister(0)
+                    dispatch(LogIn())
+                    dispatch(SetaccessToken(response.accessToken))
+                    setalert(backendres.data.message)
+                    closealert()
+                }
+            } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const errormsg=FirebaseExceptionHandler(errorCode)
+                setalert(errormsg)
+                closealert()
+            }
+            
         }
     }
 
@@ -96,11 +144,17 @@ export const Navbar = (props) => {
             setnav('mouse-in-nav')
         }
     })
+    useEffect(() => {
+        dispatch(getProducts())
+    }, [])
+    
     // useEffect(()=>{
     //     login && (document.body.style.overflow = 'hidden');
     //     !login && (document.body.style.overflow = 'hidden');
     // },[login,register])
-    
+    const handlefilter=(e)=>{
+        dispatch(FilterProductsbyName(e.target.value))
+    }
   return (
 
     <div className='nav'>
@@ -111,12 +165,13 @@ export const Navbar = (props) => {
         <div className={`top-header items-center ${nav}`}>
             {/* <Link to='/'><img src={(nav==="")?("https://ik.imagekit.io/thestylist/Assets/JV/Logo/logo-light.svg"):("https://ik.imagekit.io/thestylist/Assets/JV/Logo/logo-dark.svg")} width="192" height="40" className='logo' alt="" /></Link>  */}
             <Link to='/'>
-                <div className={`text-3xl mb-4 md:text-6xl text-[${color}] mt-2  heading `}>Vedify</div>
+                {/* <div className={`text-xl mb-4 md:text-6xl text-[${color}] mt-2  heading `}>GMP</div> */}
+                <img src="/logo.png" alt="" width="60px" className={`text-xl  text-[${color}]   heading `}/>
             </Link>
             <div className={`flex h-8 ml-48 text-xl text-[${color}]`}>
-                <div className='px-6 nav_bullets'>Order Medicines</div>
-                <div className='px-6 nav_bullets'>Book Apointment</div>
-                <div className='px-6 nav_bullets'>About</div>
+                <Link to='/About'><div className='px-6 nav_bullets'>About</div></Link>
+                <Link to='/Medicines'><div className='px-6 nav_bullets'>Order Medicines</div></Link>
+                <Link to='/Book'><div className='px-6 nav_bullets'>Book Apointment</div></Link>
             </div>     
             <div className="imp text-xl ">
 
@@ -144,14 +199,23 @@ export const Navbar = (props) => {
         </div> 
 
         {/* for search   */}
-        <>
+        <div className='search_window'>
             <div className={(search===1 || search===true)?('login_window'):('gayab')} onClick={()=>{dispatch(ToggleSearch())}}></div>
-            <div className={(search===1 || search===true)?'w-1/2 bg-white searchbar flex':'gayab'}> 
-                <input type="text" className='w-2/3 h-[20px] p-[25px] text-lg' placeholder='Search for Medicines...'/>
+            <div className={(search===1 || search===true)?'bg-white searchbar flex':'gayab'}> 
+                <input type="text" className='w-[528px] h-[20px] p-[25px] text-lg' onChange={e=>handlefilter(e)} placeholder='Search for Medicines...'/>
                 <div className='w-[60px] flex justify-center items-center bg-gray-300'><SearchIcon/></div>
             </div>
-            
-        </>                
+            <div className={(search===1 || search===true)?'w-[590px] h-[400px] bg-white searchanswers':'gayab'}>
+                {filteredProducts.map(products=>(   
+                    <Link to={`/Medicines/${products._id}`}>
+                        <div className='flex items-center searchitems ' key={products._id} onClick={()=>dispatch(ToggleSearch())}>
+                            <img src={products.photo}  alt="" />
+                            <p className='text-xl ml-8'>{products.name}</p>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        </div>                
 
         {/* for login         */}
         <div className={(login===1)?('login_window'):("gayab")} onClick={()=>setlogin(0)}></div>
@@ -159,11 +223,11 @@ export const Navbar = (props) => {
             <div className="mt-4">LOG IN</div>
             <div className="absolute top-2 right-2 cursor-pointer" onClick={()=>{setlogin(0)}}><CloseIcon/></div>
             <form className="w-full flex flex-col items-center">
-                <input type="text" value={userlog.emailid} className="logininp" name="" id="" placeholder="Enter Email Address"
+                <input type="text" value={userlog.emailid} className="logininp p-1" name="" id="" placeholder="Enter Email Address"
                 onChange={(e)=>{setuserlog({...userlog,emailid:e.target.value})}} 
                 />
 
-                <input type="password" value={userlog.password} className="logininp" name="" id=""  placeholder="Enter Password"
+                <input type="password" value={userlog.password} className="logininp p-1 " name="" id=""  placeholder="Enter Password"
                 onChange={(e)=>{setuserlog({...userlog,password:e.target.value})}}
                 />
 
@@ -181,25 +245,25 @@ export const Navbar = (props) => {
             <div className="mt-4">Register</div>
                 <div className="absolute top-2 right-2 cursor-pointer" onClick={()=>{setregister(0)}}><CloseIcon/></div>
                 <form className="w-full flex flex-col items-center">
-                    <input type="text" className="logininp" name="" id=""  placeholder="Enter Email Address"
+                    <input type="text" className="logininp p-1"  placeholder="Enter Email Address"
                     value={userreg.emailid}
                     onChange={(e)=>{setuserreg({...userreg,emailid:e.target.value})}} 
                     />
                     <div className="">
-                        <input type="text" className="registerinp" id="name" placeholder="First name"
+                        <input type="text" className="registerinp p-1" id="name" placeholder="Name"
                         value={userreg.name}
                         onChange={(e)=>{setuserreg({...userreg,name:e.target.value})}} 
                         />
-                        <input type="text" className="registerinp" placeholder="Phone no."
+                        <input type="text" className="registerinp p-1" placeholder="Phone no."
                         value={userreg.phoneno}
                         onChange={(e)=>{setuserreg({...userreg,phoneno:e.target.value})}} 
                         />
                     </div>
-                    <input type="password" className="rinp" name="" id=""  placeholder="Enter Password"
+                    <input type="password" className="rinp p-1"  placeholder="Enter Password"
                     value={userreg.password}
                     onChange={(e)=>{setuserreg({...userreg,password:e.target.value})}} 
                     />
-                    <input type="password" className="rinp" name="" id="" placeholder="Confirm password"
+                    <input type="password" className="rinp p-1" placeholder="Confirm password"
                     value={userreg.cpassword}
                     onChange={(e)=>{setuserreg({...userreg,cpassword:e.target.value})}}
                     />

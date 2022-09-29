@@ -1,25 +1,53 @@
-import React, { useState } from 'react'
-import Slider from '../Slider/Slider'
-import Navbar from '../Navbar/Navbar'
-import './Home.css'
-import Lightbutton,{Darkbutton} from '../Components/Button'
-import Gallery from './Gallery'
-import {Link} from 'react-router-dom'
-import Landingback from '../Navbar/Landingback'
-import HomeCarousal from '../Slider/HomeCarousal'
+import React, { useState } from "react";
+import Slider from "../Slider/Slider";
+import Navbar from "../Navbar/Navbar";
+import "./Home.css";
+import Lightbutton, { Darkbutton } from "../Components/Button";
+import Gallery from "./Gallery";
+import { Link } from "react-router-dom";
+import Landingback from "../Navbar/Landingback";
+import HomeCarousal from "../Slider/HomeCarousal";
+import { Avatar } from "@mui/material";
+import StatisticsHome from "./StatisticsHome";
+import HomeCatagoryCards from "./HomeCatagoryCards";
+import { Center } from "@chakra-ui/react";
+import Footer from "../footer/Footer";
 
 const Home = () => {
-
-
-
   return (
     <div>
       {/* <div className="h-20px bg-black text-center text-white absolute w-100%">Contact us:+91-8800554491</div> */}
-        <Navbar active={0}/>
-        
-        {/* <div className='slid'><Slider/></div> */}
-        <Landingback/>
-        <div className="category-container">
+      <Navbar active={0} />
+      {/* <button onClick={}>Click me</button> */}
+      {/* <div className='slid'><Slider/></div> */}
+      <Landingback />
+      <div className="w-full h-[380px] bg-[#f7f2ee] flex mt-[-2rem] rounded-tl-[3rem]">
+        <div className="text-green-800 w-1/2 p-32">
+          <div className="text-6xl pl-4">What do we do?</div>
+          <div className="text-xl p-8">
+            We Provide healthy Ayurvedic medicines at you doorstep and
+            <br />
+            also Get Consultation from professional Ayurvedic Doctor.
+          </div>
+        </div>
+        <div className="w-1/2 flex justify-center items-center pt-16">
+          <Avatar
+            alt="Remy Sharp"
+            src="https://img.collegedekhocdn.com/media/img/careers/doctor-clinic.jpg"
+            sx={{ width: 250, height: 250 }}
+          />
+        </div>
+      </div>
+      {/* <div className='w-full h-[100px] border-2 border-red-500 bg-[#f7f2ee]'>
+        </div> */}
+      <StatisticsHome />
+      <div className="bg-[#b0bd88] w-full px-16 pt-16 pb-16 mt-[-2rem] rounded-tr-[3rem]">
+        <Center fontSize="4rem" paddingBottom="2rem" color="#524000">
+          Ge<u>t Start</u>ed
+        </Center>
+        <HomeCatagoryCards />
+      </div>
+      {/* <div className="category-container">
           <p className='welcome-head'>SHOP THE COLLECTION</p>
           <b><p className='welcome'>WELCOME TO THE WORLD OF JJ VALAYA AND CELEBRATE LUXURY WITH OUR CAREFULLY CURATED COLLECTIONS.</p></b>
           <div className="options">
@@ -40,22 +68,11 @@ const Home = () => {
             </span>
           </div>
           
-        </div>
-        
-        <div className='mt-10 relative contact flex justify-center items-center'>
-          <img src="https://ik.imagekit.io/thestylist/valaya/pub/media_valaya/HOMEPAGE_IMAGES/25_Apr_22/appointment-background-e-61-ee-04-b-1-a-9-c-6-f-626-c-2-a.jpg" alt=""/>
-          <div className='absolute text-white flex flex-col items-center '>
-            <div className='text-6xl'>BOOK AN APPOINTMENT</div>  
-            <div className='mt-6 mb-8'>CONSULTATION  |  CUSTOMISATION  |  MEASUREMENT </div>
-            <Lightbutton text="BOOK NOW"/>
-          </div>
-        </div>
-        {/* gallery */}
-        <div>
-          <Gallery/>
-        </div>
-    </div>
-  )
-}
+        </div> */}
 
-export default Home
+      <Footer />
+    </div>
+  );
+};
+
+export default Home;

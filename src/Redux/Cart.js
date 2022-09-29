@@ -7,6 +7,7 @@ const initialState = {
   cartstatus: 0,
   items:[],
   totalcost:0,
+  orders:[]
 }
 
 export const CartSlice = createSlice({
@@ -25,14 +26,18 @@ export const CartSlice = createSlice({
       state.items.push(action.payload)
     },
     DeleteItem:(state,action)=>{
-      console.log(action.payload,String(action.payload.id)+String(action.payload.size))
-      state.items=state.items.filter(si=>(String(si.id)+String(si.size))!==(String(action.payload.id)+String(action.payload.size)))
+      console.log(action.payload,String(action.payload._id))
+      state.items=state.items.filter(si=>(String(si._id))!==(String(action.payload._id)))
     },
     ClearCart:(state,action)=>{
+      state.items.forEach((ord)=>{
+        state.orders.push(ord)
+      })
+      console.log("the orders:",state.orders)
       state.items=[]
     },
     Increaseqty:(state,action)=>{
-      const selected =state.items.find((si)=>si.id===action.payload) 
+      const selected =state.items.find((si)=>si._id===action.payload) 
       selected.qty+=1
     },
     Decreaseqty:(state,action)=>{
@@ -66,7 +71,7 @@ export const CartSlice = createSlice({
       }
       const res=await axios.post('http://localhost:5000/cart',details)
       console.log(res)
-    }
+    },
   },
 })
 

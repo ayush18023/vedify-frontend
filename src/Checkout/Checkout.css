@@ -8,8 +8,8 @@
     height: 100vh;
 }
 .paywindow{
-    background-color: hsl(30, 36%, 90%);
+    background-color: #efe6dc;
     width: 28vw;
-    height: 70vh;
+    /* height: 50vh; */
     
 }

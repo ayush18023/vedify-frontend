@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
-import {
-    Input, 
-  } from "@chakra-ui/react";
+// import {
+//     Input, 
+//   } from "@chakra-ui/react";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { ToggleSearch } from '../Redux/Pages';
@@ -17,7 +17,7 @@ const Landingback = () => {
        
         <div className='h-[105vh] bg-[#b0bd88] flex items-center'>
             <div className='w-1/2 p-16'>
-                <div className='text-6xl text-[#524000]'>Healthy Ayurvedic Medicines at your door step</div>
+                <div className='text-6xl text-[#524000]'>Grandmas Magical pouch <br />Medicines and Consultaion</div>
                 <div className='search mt-12 cursor-pointer flex'>
                     <div className='w-1/2 bg-white text-[#524000] text-lg p-2 pl-4 ' onClick={()=>{dispatch(ToggleSearch());}}>Search for Medicines...</div>
                     <div className='w-[40px] flex justify-center items-center bg-gray-300'><SearchIcon/></div>
