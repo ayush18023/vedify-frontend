@@ -131,7 +131,7 @@ const BookAppointment = () => {
             >
               <div className="text-xl">{days[day + 1]}</div>
               <div className="text-3xl">
-                <b>{date + 1}</b>
+                <b>{(date + 1)%30}</b>
               </div>
               <div className="text-xl">{month}</div>
             </div>
@@ -144,11 +144,11 @@ const BookAppointment = () => {
               }
               onClick={() => setisSelected(date + 2)}
             >
-              <div className="text-xl">{days[day + 2]}</div>
+              <div className="text-xl">{days[(day + 2)%7]}</div>
               <div className="text-3xl">
-                <b>{date + 2}</b>
+                <b>{(date + 2)%30}</b>
               </div>
-              <div className="text-xl">{month}</div>
+              <div className="text-xl">Oct</div>
             </div>
           </div>
           <div className="border border-gray-200 mt-4"></div>
