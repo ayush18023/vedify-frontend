@@ -50,12 +50,12 @@ export const Navbar = (props) => {
     const dispatch=useDispatch()
     
     const handlescroll=()=>{
-        // console.log(document.body.style)
         const offset=window.scrollY;
+        console.log("offset",offset)
         if(offset > 30 ){
-            active=1
             setnav('mouse-in-nav');
             setcolor(colortheme.secondary)
+            console.log(nav)
         }
         else{
             setnav('')
@@ -147,7 +147,6 @@ export const Navbar = (props) => {
     useEffect(() => {
         dispatch(getProducts())
     }, [])
-    
     // useEffect(()=>{
     //     login && (document.body.style.overflow = 'hidden');
     //     !login && (document.body.style.overflow = 'hidden');
