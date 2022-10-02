@@ -32,7 +32,7 @@ const Myaccount = () => {
                 <ul className='w-full float-left pl-10 mt-10 text-xl  font-medium'>
                     <li className='mt-4 cursor-pointer' onClick={()=>settab(0)}>My profile</li>
                     {isAdmin===1 && <Link to='/Admin'><li className='mt-4 cursor-pointer' >Admin</li></Link>}
-                    <li className='mt-4 cursor-pointer' onClick={()=>settab(2)}>My Orders</li>
+                    <li className='mt-4 cursor-pointer' onClick={()=>settab(1)}>My Orders</li>
                     <li className='mt-4 cursor-pointer' onClick={()=>{window.location.href='/'}}>Logout</li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@ const Myaccount = () => {
                         <div className='mt-10 text-lg'>Email: {userdetails.email}</div>
                     </>
                 ):(<></>)}
-                {tab===2 && (
+                {tab===1 && (
                     <div className='mt-10 text-lg'>
                         {/* <b className='text-2xl'>Orders</b> */}
                         {orders && orders.map(order=>(
